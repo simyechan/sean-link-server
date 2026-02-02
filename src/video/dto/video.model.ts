@@ -8,29 +8,29 @@ export class VideoModel extends CommonModel{
     videoId?: string;
 
     @Field(() => String, { nullable: true, description: '영상 url' } )
-    videoUrl?: string;
+    videoUrl?: string | null;
 
     @Field(() => String, { nullable: true, description: '영상 제목' } )
-    videoTitle?: string;
+    videoTitle?: string | null;
 
     @Field(() => String, { nullable: true, description: '썸네일' } )
-    thumbnail?: string;
+    thumbnail?: string | null;
 
     @Field(() => Number, { nullable: true, description: '영상 길이' } )
-    duration?: number;
+    duration?: number | null;
 
     @Field(() => String, { nullable: true, description: '채널 id' } )
-    channelId?: string;
+    channelId?: string | null;
 
     @Field(() => String, { nullable: true, description: '채널 이름' } )
-    channelName?: string;
+    channelName?: string | null;
 
     @Field(() => String, { nullable: true, description: '채널 이미지 url' } )
-    channelImageUrl?: string;
+    channelImageUrl?: string | null;
 
     @Field(() => Number, { description: '조회수' } )
     viewCount: number;
 
     @Field(() => Platform, { nullable: true, description: '플랫폼' } )
-    platform?: Platform;
+    platform?: string | null;
 }

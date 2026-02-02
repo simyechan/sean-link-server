@@ -8,7 +8,7 @@ export abstract class CommonEntity {
     createdAt: Date;
 
     @DeleteDateColumn({ type: 'timestamptz', comment: '삭제 일시', nullable: true })
-    deletedAt?: Date;
+    deletedAt?: Date | null;
 
     @UpdateDateColumn({ type: 'timestamptz', comment: '수정 일시' })
     updatedAt: Date;

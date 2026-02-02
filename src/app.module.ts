@@ -8,6 +8,7 @@ import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TagModule } from './tag/tag.module';
 import { AdminModule } from './admin/admin.module';
+import { VideoModule } from './video/video.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { AdminModule } from './admin/admin.module';
     }),
     AdminModule,
     TagModule,
+    VideoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
