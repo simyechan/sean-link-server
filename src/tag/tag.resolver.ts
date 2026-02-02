@@ -3,6 +3,7 @@ import { TagModel } from "./dto/tag.model";
 import { TagCreateInput } from "./dto/tag.input";
 import { UseGuards } from "@nestjs/common";
 import { TagService } from "./tag.service";
+import { AdminAuthGuard } from "src/common/guards/admin-auth.guards";
 
 @Resolver(() => TagModel)
 export class TagResolver {

@@ -1,6 +1,7 @@
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { VideoModel } from "./dto/video.model";
 import { UseGuards } from "@nestjs/common";
+import { AdminAuthGuard } from "src/common/guards/admin-auth.guards";
 
 @Resolver(() => VideoModel)
 export class VideoResolver {

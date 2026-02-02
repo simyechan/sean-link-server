@@ -7,6 +7,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TagModule } from './tag/tag.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { TagModule } from './tag/tag.module';
       introspection: true,
       context: ({ req }) => ({ req }),
     }),
+    AdminModule,
     TagModule,
   ],
   controllers: [AppController],
