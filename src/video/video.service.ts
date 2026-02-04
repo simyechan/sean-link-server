@@ -1,10 +1,10 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Videoetity } from "./video.entity";
 import { Repository } from "typeorm";
 import { Platform } from "src/common/enums/platform.enum";
 import { TagEntity } from "src/tag/tag.entity";
 import { VideoViewLogEntity } from "./video-view-log.entity";
+import { VideoEntity } from "./video.entity";
 
 export interface ChzzkClipResponse {
   content: {
@@ -25,7 +25,7 @@ export interface ChzzkClipResponse {
 export function mapChzzkResponseToVideoEntity(
   response: ChzzkClipResponse,
   videoUrl: string,
-): Partial<Videoetity> {
+): Partial<VideoEntity> {
   const content = response.content;
   const channel = content.optionalProperty?.ownerChannel;
 
@@ -46,7 +46,7 @@ export function mapChzzkResponseToVideoEntity(
 @Injectable()
 export class VideoService {
     constructor(
-        @InjectRepository(Videoetity) private readonly repository: Repository<Videoetity>,
+        @InjectRepository(VideoEntity) private readonly repository: Repository<VideoEntity>,
         @InjectRepository(VideoViewLogEntity) private readonly viewLogRepository: Repository<VideoViewLogEntity>,
         @InjectRepository(TagEntity) private readonly tagRepository: Repository<TagEntity>,
     ) {}
@@ -69,7 +69,7 @@ export class VideoService {
 
         await this.viewLogRepository.manager.transaction(async (manager) => {
             await manager.increment(
-                Videoetity,
+                VideoEntity,
                 { id: videoId },
                 'viewCount',
                 1,
@@ -111,13 +111,13 @@ export class VideoService {
         return match[1];
     }
 
-    async findAll(): Promise<Videoetity[]> {
+    async findAll(): Promise<VideoEntity[]> {
         return await this.repository.find({
             order: { createdAt: 'DESC' },
         });
     }
 
-    async findById(id: string): Promise<Videoetity> {
+    async findById(id: string): Promise<VideoEntity> {
         const video = await this.repository.findOneBy({ id });
         if (!video) {
             throw new NotFoundException('비디오를 찾을 수 없습니다.');
@@ -130,7 +130,7 @@ export class VideoService {
         apiResponse: ChzzkClipResponse,
         videoUrl: string,
         tagNames: string[] = [],
-    ): Promise<Videoetity> {
+    ): Promise<VideoEntity> {
         const videoId = apiResponse.content.clipUID;
 
         let exists = await this.repository.findOne({

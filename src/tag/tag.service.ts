@@ -25,6 +25,12 @@ export class TagService {
         return tag;
     }
 
+    async findByName(name: string): Promise<TagEntity | null> {
+        return await this.repository.findOne({
+            where: { name },
+        });
+    }
+
     async create(tagInput: Partial<TagEntity>): Promise<TagEntity> {
         const exists = await this.repository.findOne({
             where: { name: tagInput.name },

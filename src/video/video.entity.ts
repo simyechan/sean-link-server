@@ -1,9 +1,10 @@
 import { CommonEntity } from "src/common/entities/common.entity";
+import { PlaylistEntity } from "src/playlist/playlist.entity";
 import { TagEntity } from "src/tag/tag.entity";
-import { Column, Entity, ManyToMany } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany } from "typeorm";
 
 @Entity()
-export class Videoetity extends CommonEntity {
+export class VideoEntity extends CommonEntity {
     @Column({ type: 'varchar', unique: true, comment: '영상 id' })
     videoId: string;
 
@@ -38,4 +39,9 @@ export class Videoetity extends CommonEntity {
         cascade: true,
     })
     tags?: TagEntity[];
+
+    @OneToMany(() => PlaylistEntity, (playlist) => playlist.videos, {
+        cascade: true,
+    })
+    playlists: PlaylistEntity[];
 }
